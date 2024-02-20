@@ -2,6 +2,10 @@ import pickle
 from sklearn.metrics import fbeta_score, precision_score, recall_score
 from ml.data import process_data
 # TODO: add necessary import
+from sklearn.ensemble import RandomForestClassifier
+#import joblib
+#import numpy as np
+
 
 # Optional: implement hyperparameter tuning.
 def train_model(X_train, y_train):
@@ -16,10 +20,13 @@ def train_model(X_train, y_train):
         Labels.
     Returns
     -------
-    model
-        Trained machine learning model.
+    model : Trained machine learning model.
     """
-   # TODO: implement the function
+    # TODO: implement the function
+    model = RandomForestClassifier(n_estimators=100, random_state=42)
+    model.fit(X_train, y_train)
+    return model
+    
     pass
 
 
@@ -43,15 +50,15 @@ def compute_model_metrics(y, preds):
     precision = precision_score(y, preds, zero_division=1)
     recall = recall_score(y, preds, zero_division=1)
     return precision, recall, fbeta
-
+	
 
 def inference(model, X):
     """ Run model inferences and return the predictions.
 
     Inputs
     ------
-    model : ???
-        Trained machine learning model.
+    model : Trained machine learning model.
+        Trained machine learning model you want to use for prediction.
     X : np.array
         Data used for prediction.
     Returns
@@ -60,31 +67,53 @@ def inference(model, X):
         Predictions from the model.
     """
     # TODO: implement the function
+    preds = model.predict(X)
+    return preds
+
     pass
+	
 
 def save_model(model, path):
     """ Serializes model to a file.
 
     Inputs
     ------
-    model
-        Trained machine learning model or OneHotEncoder.
+    model : Trained machine learning model or OneHotEncoder.
+        Trained machine learning model or OneHotEncoder you want to save.
     path : str
-        Path to save pickle file.
+        Path to save the pickle file.
     """
+       
     # TODO: implement the function
-    pass
+    with open(path, 'wb') as file:
+        pickle.dump(model, file)
+
+        pass
+    
+        
+    #save_model(trained_model, "model.pkl")
+    #joblib.dump(model, path)
+	
 
 def load_model(path):
     """ Loads pickle file from `path` and returns it."""
     # TODO: implement the function
-    pass
+    with open(path, 'rb') as file:
+        model = pickle.load(file)
+    return model
 
+    pass
+    
+    #loaded_model = load_model("model.pkl")
+    #model = joblib.load(path)
+    #return model
+	
 
 def performance_on_categorical_slice(
     data, column_name, slice_value, categorical_features, label, encoder, lb, model
 ):
     """ Computes the model metrics on a slice of the data specified by a column name and
+    slice value.
 
     Processes the data using one hot encoding for the categorical features and a
     label binarizer for the labels. This can be used in either training or
@@ -107,22 +136,37 @@ def performance_on_categorical_slice(
         Trained sklearn OneHotEncoder, only used if training=False.
     lb : sklearn.preprocessing._label.LabelBinarizer
         Trained sklearn LabelBinarizer, only used if training=False.
-    model : ???
+    model : Trained machine learning model.
         Model used for the task.
 
     Returns
     -------
     precision : float
+    #Precision metric for the sliced data.
     recall : float
+    #Recall metric for the sliced data.
     fbeta : float
-
+    F-beta score for the sliced data.
     """
-    # TODO: implement the function
+
+    
+	# TODO: implement the function
+    #X_slice, y_slice, _, _ = process_data(
+        #data, categorical_features, label, encoder, lb, training=False, column_name=column_name, slice_value=slice_value
+    #)
     X_slice, y_slice, _, _ = process_data(
-        # your code here
-        # for input data, use data in column given as "column_name", with the slice_value 
-        # use training = False
+        data,
+        categorical_features=categorical_features,
+        label=label,
+        encoder=encoder,
+        lb=lb,
+        training=False,
+        column_name=column_name,
+        slice_value=slice_value,
     )
-    preds = # your code here to get prediction on X_slice using the inference function
+
+               
+
+    preds = inference(model, X_slice)
     precision, recall, fbeta = compute_model_metrics(y_slice, preds)
     return precision, recall, fbeta
