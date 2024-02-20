@@ -12,6 +12,7 @@ def train_model():
     model_rf = RandomForestClassifier(n_estimators=100)
 
 
+
 # DO NOT MODIFY
 class Data(BaseModel):
     age: int = Field(..., example=37)
@@ -74,6 +75,8 @@ async def post_inference(data: Data):
     ]
     data_processed, _, _, _ = process_data(
         X=data,  # Replace `data` with your input data
+        encoder=encoder, # add encoder argument
+        categorical_features=cat_features, # add categorical_features argument
         training=False  # Set training mode to False
     )
         # use data as data input
