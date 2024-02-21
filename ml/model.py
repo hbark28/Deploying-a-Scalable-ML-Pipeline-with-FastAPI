@@ -5,7 +5,6 @@ from ml.data import process_data
 from sklearn.ensemble import RandomForestClassifier
 
 
-
 # Optional: implement hyperparameter tuning.
 def train_model(X_train, y_train):
     """
