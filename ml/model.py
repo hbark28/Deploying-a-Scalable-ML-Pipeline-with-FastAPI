@@ -4,7 +4,6 @@ from ml.data import process_data
 # TODO: add necessary import
 from sklearn.ensemble import RandomForestClassifier
 # import joblib
-# import numpy as np
 
 
 # Optional: implement hyperparameter tuning.
