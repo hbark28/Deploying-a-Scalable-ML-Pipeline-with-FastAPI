@@ -91,9 +91,8 @@ def save_model(model, path):
         pass
 
     
-    # joblib.dump(model, path)
-
-
+    
+    
 def load_model(path):
     """ Loads pickle file from `path` and returns it."""
     # TODO: implement the function
