@@ -11,7 +11,6 @@ print(f"GET Status Code: {r.status_code}")
 print(f"Welcome Message: {r.json()['message']}")
 
 
-
 data = {
     "age": 37,
     "workclass": "Private",
@@ -42,6 +41,4 @@ except requests.exceptions.JSONDecodeError:
     print(f"Failed to decode JSON. Response content: {r.content}")
 except KeyError:
     print(f"JSON Response: {r.json()}")
-#print(r.json())
-
-
+# print(r.json())

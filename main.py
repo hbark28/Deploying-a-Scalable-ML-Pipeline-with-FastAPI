@@ -12,7 +12,6 @@ def train_model():
     model_rf = RandomForestClassifier(n_estimators=100)
 
 
-
 # DO NOT MODIFY
 class Data(BaseModel):
     age: int = Field(..., example=37)
@@ -30,13 +29,15 @@ class Data(BaseModel):
     capital_gain: int = Field(..., example=0, alias="capital-gain")
     capital_loss: int = Field(..., example=0, alias="capital-loss")
     hours_per_week: int = Field(..., example=40, alias="hours-per-week")
-    native_country: str = Field(..., example="United-States", alias="native-country")
+    native_country: str = Field(..., example="United-States",
+                                alias="native-country")
 
-# TODO: enter the path for the saved encoder 
+
+# TODO: enter the path for the saved encoder
 path = "model/encoder.pkl"
 encoder = load_model(path)
 
-# TODO: enter the path for the saved model 
+# TODO: enter the path for the saved model
 path = "model/model.pkl"
 model = load_model(path)
 
@@ -44,12 +45,13 @@ model = load_model(path)
 app = FastAPI()
 
 # TODO: create a GET on the root giving a welcome message
+
+
 @app.get("/")
 async def get_root():
     """ Say hello!"""
     return {"message": "Welcome to the ML Model FastAPI!"}
-    
-    
+
 
 
 # TODO: create a POST on a different path that does model inference
@@ -75,13 +77,13 @@ async def post_inference(data: Data):
     ]
     data_processed, _, _, _ = process_data(
         X=data,  # Replace `data` with your input data
-        encoder=encoder, # add encoder argument
-        categorical_features=cat_features, # add categorical_features argument
+        encoder=encoder,  # add encoder argument
+        categorical_features=cat_features,  # add categorical_features argument
         training=False  # Set training mode to False
     )
-        # use data as data input
-        # use training = False
-        # do not need to pass lb as input
-    
+    # use data as data input
+    # use training = False
+    # do not need to pass lb as input
+
     _inference = inference(model, data_processed)
     return {"result": apply_label(_inference)}

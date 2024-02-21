@@ -1,5 +1,5 @@
 import os
-#import nump as np
+# import nump as np
 import pandas as pd
 from sklearn.model_selection import train_test_split
 
@@ -25,8 +25,7 @@ data = pd.read_csv(data_path)
 # Optional enhancement, use K-fold cross validation instead of a train-test split.
 train, test = train_test_split(data, test_size=0.2, random_state=42)
 
-#X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-
+# X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
 
 # DO NOT MODIFY
@@ -43,19 +42,19 @@ cat_features = [
 
 # TODO: use the process_data function provided to process the data.
 X_train, y_train, encoder, lb = process_data(
-    train, 
-    categorical_features=cat_features, 
-    label="salary", 
+    train,
+    categorical_features=cat_features,
+    label="salary",
     training=True
 )
-	
+
 X_test, y_test, _, _ = process_data(
-    test, 
-	categorical_features=cat_features, 
-	label="salary", 
-	training=False, 
-	encoder=encoder, 
-	lb=lb
+    test,
+    categorical_features=cat_features,
+    label="salary",
+    training=False,
+    encoder=encoder,
+    lb=lb
 )
 
 
@@ -88,10 +87,11 @@ for col in cat_features:
         count = test[test[col] == slicevalue].shape[0]
         p, r, fb = performance_on_categorical_slice(
             test, col, slicevalue, cat_features, "salary", encoder, lb, model
-            #data, col, slicevalue, cat_features, "salary", encoder, lb, model
+            # data, col, slicevalue, cat_features, "salary", encoder, lb, model
         )
         # use test, col and slicevalue as part of the input
         output_file_path = "slice_output.txt"
         with open("slice_output.txt", "a") as f:
             print(f"{col}: {slicevalue}, Count: {count:,}", file=f)
-            print(f"Precision: {p:.4f} | Recall: {r:.4f} | F1: {fb:.4f}", file=f)
+            print(
+                f"Precision: {p:.4f} | Recall: {r:.4f} | F1: {fb:.4f}", file=f)
