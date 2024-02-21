@@ -32,6 +32,6 @@ jobs:
 
     - name: Run Flake8
       run: |
-        flake8 Deploy-a-Scalable-ML-Pipeline-with-FastAPI
+        flake8 
       env:
         PYTHONPATH: ${{github.workspace}}      
