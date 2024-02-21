@@ -90,7 +90,7 @@ def save_model(model, path):
 
         pass
 
-    # save_model(trained_model, "model.pkl")
+    
     # joblib.dump(model, path)
 
 
@@ -103,9 +103,7 @@ def load_model(path):
 
     pass
 
-    # loaded_model = load_model("model.pkl")
-    # model = joblib.load(path)
-    # return model
+    
 
 
 def performance_on_categorical_slice(
