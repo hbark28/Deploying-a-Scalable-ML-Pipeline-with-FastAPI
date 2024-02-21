@@ -53,7 +53,6 @@ async def get_root():
     return {"message": "Welcome to the ML Model FastAPI!"}
 
 
-
 # TODO: create a POST on a different path that does model inference
 @app.post("/data/")
 async def post_inference(data: Data):
